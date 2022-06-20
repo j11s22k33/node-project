@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2'); // mysql 모듈 사용
 const sql = require('./sql.js'); // SQL 쿼리문이 작성되어 있는 파일
 
 const pool  = mysql.createPool({  // Pool 생성

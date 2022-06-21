@@ -14,6 +14,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions)) // cors를 모든 라우터에 적용
 
+// attaches socket.io to a plain Node.JS HTTP server
 const io = new Server(httpServer, { 
     cors: { // CORS 처리
     origin: 'http://localhost:5500',  // 허용할 호스트
@@ -37,8 +38,15 @@ const sendMsgToClient = () => {
     // 데이터가 변경이 되었는지 코드 구현
     // 데이터가 변경이 되었으면 클라이언트로 변경된 데이터 전송
     io.emit('server2client', {code:`item${Math.random()}`, price:Math.random()});
+    // socket.emit('request', /* … */); // emit an event to the socket
+    // io.emit('broadcast', /* … */); // emit an event to all connected sockets
   }, 1000);
 }
+
+// / 라우트로 접속하면 웹페이지 보이게
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/app_socket.html');
+});
 
 // /socket 라우트로 접속하면 1초 마다 데이터 변경 여부 체크 후 변경이 되었다면 변경된 데이터 전송 
 app.get('/socket', (req, res) => {

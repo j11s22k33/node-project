@@ -1,10 +1,21 @@
 module.exports = {
-  apps : [{
-    name   : "app1",
-    script : "./app.js"
-  },
-  {
-    name   : "app2",
-    script : "./app2.js"
-  }]
+    apps: [
+        {
+            "name": "myapp",
+            "script": "./app.js",
+            "instances": "2",
+            "exec_mode": "cluster",
+            "watch": true,
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "env_production": {
+                "NODE_ENV": "production"
+            }
+        },
+        {
+            "name": "myapp2",
+            "script": "./app.js"
+        }
+    ]
 }
